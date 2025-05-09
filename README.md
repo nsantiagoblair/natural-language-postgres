@@ -17,7 +17,7 @@ This project is a Next.js application that allows users to query a PostgreSQL da
 - AI SDK by Vercel for AI integration
 - OpenAI's GPT-4o for natural language processing
 - PostgreSQL for data storage
-- Vercel Postgres for database hosting
+- Docker for containerization
 - Framer Motion for animations
 - ShadowUI for UI components
 - Tailwind CSS for styling
@@ -58,25 +58,25 @@ To get the project up and running, follow these steps:
    pnpm install
    ```
 
-2. Copy the example environment file:
+2. Start the PostgreSQL database with Docker Compose:
 
    ```bash
-   cp .env.example .env
+   docker-compose up -d
    ```
 
-3. Add your OpenAI API key and PostgreSQL connection string to the `.env` file:
+   This will start a PostgreSQL container with the following default credentials:
+   - User: postgres
+   - Password: postgres
+   - Database: postgres
+   - Host: localhost
+   - Port: 5432
 
+3. Add your OpenAI API key to the environment:
+
+   ```bash
+   export OPENAI_API_KEY=your_api_key_here
    ```
-   OPENAI_API_KEY=your_api_key_here
-   POSTGRES_URL="..."
-   POSTGRES_PRISMA_URL="..."
-   POSTGRES_URL_NO_SSL="..."
-   POSTGRES_URL_NON_POOLING="..."
-   POSTGRES_USER="..."
-   POSTGRES_HOST="..."
-   POSTGRES_PASSWORD="..."
-   POSTGRES_DATABASE="..."
-   ```
+
 4. Download the dataset:
   - Go to https://www.cbinsights.com/research-unicorn-companies
   - Download the unicorn companies dataset
@@ -94,6 +94,20 @@ To get the project up and running, follow these steps:
 
 Your project should now be running on [http://localhost:3000](http://localhost:3000).
 
+## Using Custom PostgreSQL Configuration
+
+You can customize the PostgreSQL connection by setting the following environment variables:
+
+```bash
+export POSTGRES_USER=your_user
+export POSTGRES_PASSWORD=your_password
+export POSTGRES_HOST=your_host
+export POSTGRES_PORT=your_port
+export POSTGRES_DB=your_database
+```
+
+These will be automatically used by the application to connect to your PostgreSQL instance.
+
 ## Deployment
 
 The project is set up for easy deployment on Vercel. Use the "Deploy with Vercel" button in the repository to create your own instance of the application.
@@ -108,7 +122,8 @@ To learn more about the technologies used in this project, check out the followi
 - [Next.js Documentation](https://nextjs.org/docs)
 - [AI SDK](https://sdk.vercel.ai/docs)
 - [OpenAI](https://openai.com/)
-- [Vercel Postgres powered by Neon](https://vercel.com/docs/storage/vercel-postgres)
+- [Docker](https://docs.docker.com/)
+- [PostgreSQL](https://www.postgresql.org/docs/)
 - [Framer Motion](https://www.framer.com/motion/)
 - [ShadcnUI](https://ui.shadcn.com/)
 - [Tailwind CSS](https://tailwindcss.com/docs)
